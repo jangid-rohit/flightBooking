@@ -27,10 +27,7 @@ public class FlightDetail {
 	private String days;
 	@Transient
 	private int availableSeat;
-	public FlightDetail() {
-	}
-
-	public String getFlightNo() {
+		public String getFlightNo() {
 		return flightNo;
 	}
 

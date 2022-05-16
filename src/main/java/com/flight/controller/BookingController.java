@@ -23,7 +23,9 @@ public class BookingController {
 
 	@PostMapping("/bookTicket")
 	public ResponseEntity<List<BookingDetail>> bookTicket(@RequestBody Map<String, Object> body) {
+		@SuppressWarnings("unchecked")
 		List<String> flightIds = (List<String>) body.get("flightids");
+		@SuppressWarnings("unchecked")
 		List<Integer> passengerIds = (List<Integer>) body.get("passengerids");
 
 		final String bookingDateString = body.get("bookingDate").toString();
