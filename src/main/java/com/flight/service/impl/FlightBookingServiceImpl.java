@@ -28,6 +28,9 @@ public class FlightBookingServiceImpl implements FlightBookingService{
 
 	public List<BookingDetail> bookTicket(List<String> flightIds, List<Integer> passengerIds, Date bookingDate) {
 
+		if( flightIds == null || passengerIds == null ||bookingDate == null) {
+			return Collections.emptyList();
+		}
 		List<BookingDetail> bookingDetails = new ArrayList<>();
 		final int numberOfPassengers = passengerIds.size();
 
