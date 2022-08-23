@@ -18,8 +18,12 @@ import com.flight.repository.BookingDetailRepository;
 import com.flight.repository.FlightDetailRepository;
 import com.flight.service.FlightSearchService;
 
+/**
+ * @author rohitsharma
+ *
+ */
 @Service
-public class FlightSearchServiceImpl implements FlightSearchService{
+public class FlightSearchServiceImpl implements FlightSearchService {
 	@Autowired
 	FlightDetailRepository fdr;
 
@@ -31,10 +35,7 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 	 * connecting flights
 	 */
 	public Map<String, List<List<FlightDetail>>> searchFlights(String src, String des, Date date, int numberOfSeat) {
-		// this will return name of week,ex tue, wed, mon
-		SimpleDateFormat weekFormat = new SimpleDateFormat("EEE");
-		// store week in lowercase
-		String week = weekFormat.format(date).toLowerCase();
+
 		// all direct and connecting flights will store in it.
 		Map<String, List<List<FlightDetail>>> allAvailableFlights = new HashMap<>(2);
 		// All connectingFlights
@@ -43,6 +44,15 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 		List<List<FlightDetail>> directFlight = new ArrayList<>();
 		allAvailableFlights.put("direct", directFlight);
 		allAvailableFlights.put("connecting", connectingFlight);
+
+		if (src == null || des == null || date == null) {
+			return allAvailableFlights;
+		}
+		// this will return name of week,ex tue, wed, mon
+		SimpleDateFormat weekFormat = new SimpleDateFormat("EEE");
+		// store week in lowercase
+		String week = weekFormat.format(date).toLowerCase();
+
 		List<FlightDetail> allFlightDetails = fdr.findAllByDaysContainsOrderByDepartureAsc(week);
 		if (allFlightDetails.isEmpty()) {
 			return allAvailableFlights;
